@@ -1,0 +1,8 @@
+{
+  "Sheep": {
+    "мaxCountOnCell": 140,
+    "weight": 70.0,
+    "maxSpeed": 3,
+    "satisfiedWeight": 15
+  }
+}
