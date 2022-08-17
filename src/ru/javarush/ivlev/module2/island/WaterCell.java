@@ -1,6 +1,4 @@
 package ru.javarush.ivlev.module2.island;
 
-
-public class Cell {
-
+public class WaterCell extends Cell{
 }

@@ -2,11 +2,25 @@ package ru.javarush.ivlev.module2.animal;
 
 import ru.javarush.ivlev.module2.island.Cell;
 import ru.javarush.ivlev.module2.IslandItem;
+import ru.javarush.ivlev.module2.island.Direction;
+
+import java.util.List;
+import java.util.Map;
 
 public abstract class Animal extends IslandItem implements Move,Eat {
-    public double мaxCountOnCell;
-    public int maxSpeed;
-    public double satisfiedWeight;
+    private double мaxCountOnCell;
+    private int maxSpeed;
+    private double satisfiedWeight;
+    private Map<String,Double> canEat;
+    public Map<String, Double> getCanEat() {
+        return canEat;
+    }
+
+    public void setCanEat(Map<String, Double> canEat) {
+        this.canEat = canEat;
+    }
+
+
 
     public boolean isLive() {
         return isLive;
@@ -41,4 +55,14 @@ public abstract class Animal extends IslandItem implements Move,Eat {
     }
 
 
+    @Override
+    public boolean eat(IslandItem item) {
+
+        return false;
+    }
+
+    @Override
+    public void move(Direction direction, int distance) {
+
+    }
 }

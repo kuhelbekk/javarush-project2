@@ -19,7 +19,7 @@ public class Main {
         }
         int  width = Integer.parseInt(properties.getProperty("width", "20"));
         int  height = Integer.parseInt(properties.getProperty("height", "100"));
-        Island island = new Island(width,height);
+        Island island = new Island("islandOne.json");
 
         int steps = 300;
         while(steps>0){

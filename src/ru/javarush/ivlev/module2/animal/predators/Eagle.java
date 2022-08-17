@@ -1,4 +1,4 @@
 package ru.javarush.ivlev.module2.animal.predators;
 
-public class Eagle {
+public class Eagle extends Predator {
 }
