@@ -9,21 +9,12 @@ import java.util.Properties;
 
 public class Main {
     static Island island;
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         Properties properties = new Properties();
-
-        try(FileReader fileReader = new FileReader("island.properties")){
-            properties.load(fileReader);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        int  width = Integer.parseInt(properties.getProperty("width", "20"));
-        int  height = Integer.parseInt(properties.getProperty("height", "100"));
         Island island = new Island("islandOne.json");
-
         int steps = 300;
         while(steps>0){
-            island.startDay();
+            island.islandDay();
             steps--;
         }
 

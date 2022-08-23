@@ -1,8 +1,11 @@
 package ru.javarush.ivlev.module2.island;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.javarush.ivlev.module2.animal.Animal;
 public class AnimalType {
+    Animal clonableAnimalType;
     JsonNode classParams ;
     private final Class<Animal> classAnimal;
     private int мaxCountOnCell ;
@@ -20,7 +23,20 @@ public class AnimalType {
         return classParams;
     }
     public void setClassParams(JsonNode classParams) {
+        try {
+            clonableAnimalType  =  new ObjectMapper().treeToValue(classParams, getClassAnimal());
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Error parse Json Animal params", e);
+        }
         this.classParams = classParams;
+
     }
 
+    public Animal getNewAnimal() {
+        try {
+            return (Animal) clonableAnimalType.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Error clone Animal ",e);
+        }
+    }
 }

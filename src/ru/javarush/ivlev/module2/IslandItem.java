@@ -3,7 +3,7 @@ package ru.javarush.ivlev.module2;
 import ru.javarush.ivlev.module2.island.Cell;
 
 public abstract class IslandItem {
-    Cell cell;
+    private Cell cell;
     private double weight;
 
     public IslandItem() {
@@ -32,4 +32,5 @@ public abstract class IslandItem {
     }
 
 
+    public abstract double smallerWeight(double weight);
 }
