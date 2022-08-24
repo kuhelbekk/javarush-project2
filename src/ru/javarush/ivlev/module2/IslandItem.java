@@ -32,5 +32,10 @@ public abstract class IslandItem {
     }
 
 
+    /**
+     *
+     * @param weight - desirable piece weight
+     * @return what was eaten
+     */
     public abstract double smallerWeight(double weight);
 }

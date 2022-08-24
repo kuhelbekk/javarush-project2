@@ -2,20 +2,23 @@ package ru.javarush.ivlev.module2;
 
 import ru.javarush.ivlev.module2.island.Island;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Properties;
+import java.io.File;
+import java.util.Scanner;
 
 public class Main {
     static Island island;
     public static void main(String[] args)  {
-        Properties properties = new Properties();
-        Island island = new Island("islandOne.json");
+        ParamIslandLoader paramsLoader = new ParamIslandLoader("resources" + File.separator +"islandOne.json");
+        new UserDialog(paramsLoader,System.out,System.in, paramsLoader);
+        Island island = new Island(paramsLoader.getWidth(),paramsLoader.getHeight(),paramsLoader.getAnimalTypes());
+
+        IslandStat islandStat = new IslandStat(island, System.out);
+        islandStat.printStartStatistic();
         int steps = 300;
         while(steps>0){
             island.islandDay();
             steps--;
+            islandStat.printEndDayStatistic();
         }
 
     }

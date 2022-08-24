@@ -1,11 +1,12 @@
 package ru.javarush.ivlev.module2.animal;
 
+import lombok.Getter;
+import lombok.Setter;
 import ru.javarush.ivlev.module2.IslandItem;
 import ru.javarush.ivlev.module2.island.Direction;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
@@ -13,8 +14,12 @@ public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
     private int maxSpeed;
     private double replete; //сытость
     private double satisfiedWeight;
+    @Getter
     private boolean isLive;
 
+    @Getter
+    @Setter
+    private boolean isMultiplicationInToday;
     boolean canEatPlant;
     int remainingDayDistance;
     /**
@@ -32,11 +37,6 @@ public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
     }
 
 
-
-    public boolean isLive() {
-        return isLive;
-    }
-
     public Animal() {
         super(null);
         isLive = true;
@@ -46,7 +46,6 @@ public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
     public double smallerWeight(double weight) {
         isLive = false;
         if (getWeight()<weight){
-            System.out.println("хотим откусить больше чем есть");
             Double res  = getWeight();
             setWeight( 0 );
             return res;
@@ -89,7 +88,7 @@ public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
     public boolean eat() { // остстров спрашивает животное, хочет ли оно кушать..
         if(!isLive) return false;
         if (replete*0.9 >satisfiedWeight) return false;
-        List<IslandItem> animalsForFood =  getCell().getAptFood(canEat);// животное хочет и спрашивает что в меню
+        List<IslandItem> animalsForFood =  getCell().getAptFood(canEat);// животное хочет есть и спрашивает что в меню
         if (animalsForFood.size()>0) {
             return getCell().eat(this, animalsForFood.get(0));
         }
@@ -138,12 +137,19 @@ public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
 
     public void addReplete(double weight){
         this.replete += weight;
-        if (replete>satisfiedWeight){
+        if ((replete-0.001)>satisfiedWeight){
             replete=satisfiedWeight;
             System.out.println("Животное съело больше чем смогло!");
         }
     }
 
-
+    public boolean multiplication() {
+        if (!isLive) return false;
+        /* List<Animal> animalsForMultiplication =  getCell().animalsForMultiplication(this);
+        if (animalsForMultiplication.size()>0) {
+            return getCell().multiplication(this, animalsForMultiplication.get(0));
+        }*/
+        return false;
+    }
 
 }

@@ -4,7 +4,7 @@
   "animals": [
     {
       "className": "animal.herbivores.Sheep",
-      "мaxCountOnCell": 140,
+      "maxCountOnCell": 140,
       "emoji":  "🐑",
       "classParams": {
         "weight": 70.0,
@@ -17,7 +17,7 @@
     },
     {
       "className": "animal.herbivores.Buffalo",
-      "мaxCountOnCell": 10,
+      "maxCountOnCell": 10,
       "emoji": "🐃",
       "classParams": {
         "weight": 700.0,
@@ -30,7 +30,7 @@
     },
     {
       "className": "animal.herbivores.Duck",
-      "мaxCountOnCell": 200,
+      "maxCountOnCell": 200,
       "emoji": "🦆",
       "classParams": {
         "weight" :1.0,
@@ -44,7 +44,7 @@
     },
     {
       "className": "animal.herbivores.Caterpillar",
-      "мaxCountOnCell": 1000,
+      "maxCountOnCell": 1000,
       "emoji": "🐛",
       "classParams": {
         "weight": 0.01,
@@ -57,7 +57,7 @@
     },
     {
       "className": "animal.herbivores.Hog",
-      "мaxCountOnCell": 50,
+      "maxCountOnCell": 50,
       "emoji": "🐗",
       "classParams": {
         "weight": 400.0,
@@ -72,7 +72,7 @@
     },
     {
       "className": "animal.herbivores.Goat",
-      "мaxCountOnCell": 140,
+      "maxCountOnCell": 140,
       "emoji": "🐐",
       "classParams": {
         "weight": 60.0,
@@ -85,7 +85,7 @@
     },
     {
       "className": "animal.herbivores.Mouse",
-      "мaxCountOnCell": 500,
+      "maxCountOnCell": 500,
       "emoji": "🐁",
       "classParams": {
         "weight": 0.05,
@@ -99,7 +99,7 @@
     },
     {
       "className": "animal.herbivores.Rabbit",
-      "мaxCountOnCell": 150,
+      "maxCountOnCell": 150,
       "emoji": "🐇",
       "classParams": {
         "weight": 2.0,
@@ -112,7 +112,7 @@
     },
     {
       "className": "animal.herbivores.Deer",
-      "мaxCountOnCell": 20,
+      "maxCountOnCell": 20,
       "emoji": "🦌",
       "classParams": {
         "weight": 300.0,
@@ -125,7 +125,7 @@
     },
     {
       "className": "animal.herbivores.Horse",
-      "мaxCountOnCell": 20,
+      "maxCountOnCell": 20,
       "emoji": "🐎",
       "classParams": {
         "weight": 400.0,
@@ -138,7 +138,7 @@
     },
     {
       "className": "animal.predators.Eagle",
-      "мaxCountOnCell": 20,
+      "maxCountOnCell": 20,
       "emoji": "🦅",
       "classParams": {
         "weight": 6.0,
@@ -154,7 +154,7 @@
     },
     {
       "className": "animal.predators.Bear",
-      "мaxCountOnCell": 5,
+      "maxCountOnCell": 5,
       "emoji": "🐻",
       "classParams": {
         "weight": 500.0,
@@ -177,7 +177,7 @@
 	,
     {
       "className": "animal.predators.Wolf",
-      "мaxCountOnCell": 30,
+      "maxCountOnCell": 30,
       "emoji": "🐺",
       "classParams": {
         "weight": 50.0,
@@ -198,7 +198,7 @@
     },
     {
       "className": "animal.predators.Boa",
-      "мaxCountOnCell": 30,
+      "maxCountOnCell": 30,
       "emoji": "🐍",
       "classParams": {
         "weight": 15.0,
@@ -214,7 +214,7 @@
     },
     {
       "className": "animal.predators.Fox",
-      "мaxCountOnCell": 30,
+      "maxCountOnCell": 30,
       "emoji": "🦊",
       "classParams": {
         "weight": 8.0,

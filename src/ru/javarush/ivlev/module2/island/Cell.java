@@ -62,7 +62,7 @@ public class Cell {
     }
 
 
-    public void createAnimals(List<AnimalType> animaltypes, Set<Animal> setFolAnimals) {
+    public void createAnimals(List<AnimalType> animaltypes, Set<Animal> setForAnimals) {
         for (AnimalType animaltype : animaltypes) {
             int count = new Random().nextInt(animaltype.getМaxCountOnCell());
             for (int i = 0; i < count; i++) {
@@ -71,7 +71,7 @@ public class Cell {
                 animal.setReplete(animal.getSatisfiedWeight()); //  новое сразу сытое
                 animal.setCell(this);
                 animals.add(animal);
-                if (setFolAnimals != null) setFolAnimals.add(animal);
+                if (setForAnimals != null) setForAnimals.add(animal);
             }
         }
     }
@@ -107,6 +107,8 @@ public class Cell {
                         //foodItem.die(); //  с травой костыль вышел, но я ченть придумаю
                         animal.addReplete( foodItem.smallerWeight(animal.getSatisfiedWeight() - animal.getReplete()) );
                         return true;
+                    }else{
+                        return false;
                     }
                 }
             }

@@ -3,6 +3,7 @@ package ru.javarush.ivlev.module2.island;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
 import ru.javarush.ivlev.module2.IslandItem;
 import ru.javarush.ivlev.module2.animal.Animal;
 
@@ -11,24 +12,22 @@ import java.io.IOException;
 import java.util.*;
 
 public class Island {
-    final int  width;
-    final int  height;
-    Cell[][] cells;
-    Set<Animal> allAnimals;
 
-    List<AnimalType> animalTypes ;
+    @Getter
+    private int day;
+    private final int width;
+    private final int height;
+    @Getter
+    private Cell[][] cells;
+    @Getter
+    private Set<Animal> allAnimals;
+    private List<AnimalType> animalTypes ;
 
-    public Island(String fileParamName) {
-        try {
-            JsonNode mainNode = new ObjectMapper().readTree(new File("properties" + File.separator +fileParamName ));
-            this.width =  mainNode.get("width").asInt();
-            this.height = mainNode.get("height").asInt();
-            animalTypes = loadAnimals(mainNode.get("animals"));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("error Json format");
-        } catch (IOException e) {
-            throw new RuntimeException("error Json file");
-        }
+    public Island(int width, int height, List<AnimalType> animalTypes) {
+        day = 0;
+        this.animalTypes=animalTypes;
+        this.width = width;
+        this.height = height;
         allAnimals = new HashSet<>();
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
@@ -42,22 +41,7 @@ public class Island {
 
 
 
-    private List<AnimalType> loadAnimals(JsonNode animalsNode) {
-        List<AnimalType> animalTypes = new LinkedList<AnimalType>();
-        for (JsonNode animalNode : animalsNode) {
-            Class clazz = null;
-            String className = IslandItem.class.getPackageName() + "." + animalNode.get("className").asText();
-            try {
-                clazz = Class.forName(className);
-                AnimalType animalType = new AnimalType(clazz,animalNode.get("мaxCountOnCell").asInt());
-                animalType.setClassParams(animalNode.get("classParams"));
-                animalTypes.add(animalType);
-            } catch (ClassNotFoundException e) {
-                //Log("Not found class" + className);
-            }
-        }
-        return animalTypes;
-    }
+
 
 // думаю что в живой природе животным главное покушать,
 // потом размножится и лишь потом, кудато идти(и то лишь при условии что кушать и размножатся в этой местности стало тяжелее )
@@ -67,6 +51,7 @@ public class Island {
         // cells
     }
     public void startDay() {
+        day++;
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (cells[i][j] instanceof IslandCell) {
@@ -78,7 +63,7 @@ public class Island {
     }
     private void everydayRoutine() {
         allAnimals.forEach(animal -> animal.eat());
-
+        allAnimals.forEach(animal -> animal.multiplication());
         allAnimals.forEach(animal -> animal.move());
 
     }
@@ -129,4 +114,6 @@ public class Island {
             return false;
         }
     }
+
+
 }

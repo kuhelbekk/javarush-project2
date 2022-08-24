@@ -15,8 +15,7 @@ public class Plant extends IslandItem {
     @Override
     public double smallerWeight(double weight) {
         if (getWeight()<weight){
-            System.out.println("хотим откусить больше чем есть");
-             Double res  = getWeight();
+            Double res  = getWeight();
             setWeight( 0 );
             return res;
         }
