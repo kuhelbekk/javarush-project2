@@ -8,16 +8,16 @@ public class AnimalType {
     Animal clonableAnimalType;
     JsonNode classParams ;
     private final Class<Animal> classAnimal;
-    private int мaxCountOnCell ;
-    public AnimalType(Class<Animal> classAnimal, int мaxCountOnCell) {
+    private int maxCountOnCell;
+    public AnimalType(Class<Animal> classAnimal, int maxCountOnCell) {
         this.classAnimal = classAnimal;
-        this.мaxCountOnCell = мaxCountOnCell;
+        this.maxCountOnCell = maxCountOnCell;
     }
     public Class<Animal> getClassAnimal() {
         return classAnimal;
     }
-    public int getМaxCountOnCell() {
-        return мaxCountOnCell;
+    public int getMaxCountOnCell() {
+        return maxCountOnCell;
     }
     public JsonNode getClassParams() {
         return classParams;

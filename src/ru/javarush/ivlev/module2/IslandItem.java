@@ -6,11 +6,9 @@ public abstract class IslandItem {
     private Cell cell;
     private double weight;
 
-    public IslandItem() {
+    protected IslandItem() {    }
 
-    }
-
-    public IslandItem(Cell cell) {
+    protected IslandItem(Cell cell) {
         this.cell = cell;
     }
 

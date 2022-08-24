@@ -50,7 +50,7 @@ public class Cell {
         for (Animal animalF : animals) {
             if (animalF.getClass()==animal.getClass()) countAnimalsTypeInCell++;
         }
-        if(countAnimalsTypeInCell<animal.getМaxCountOnCell()) return true;
+        if(countAnimalsTypeInCell<animal.getMaxCountOnCell()) return true;
 
 
         return false;
@@ -64,10 +64,10 @@ public class Cell {
 
     public void createAnimals(List<AnimalType> animaltypes, Set<Animal> setForAnimals) {
         for (AnimalType animaltype : animaltypes) {
-            int count = new Random().nextInt(animaltype.getМaxCountOnCell());
+            int count = new Random().nextInt(animaltype.getMaxCountOnCell());
             for (int i = 0; i < count; i++) {
                 Animal animal = animaltype.getNewAnimal();
-                animal.setМaxCountOnCell(animaltype.getМaxCountOnCell());
+                animal.setMaxCountOnCell(animaltype.getMaxCountOnCell());
                 animal.setReplete(animal.getSatisfiedWeight()); //  новое сразу сытое
                 animal.setCell(this);
                 animals.add(animal);

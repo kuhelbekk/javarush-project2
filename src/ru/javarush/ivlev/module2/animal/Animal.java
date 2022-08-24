@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
-    private double мaxCountOnCell; // удалить, так как это не свойство животного, а свойство клетки
+    private double maxCountOnCell; // удалить, так как это не свойство животного, а свойство клетки
     private int maxSpeed;
     private double replete; //сытость
     private double satisfiedWeight;
@@ -59,12 +59,12 @@ public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
         return super.clone();
     }
 
-    public double getМaxCountOnCell() {
-        return мaxCountOnCell;
+    public double getMaxCountOnCell() {
+        return maxCountOnCell;
     }
 
-    public void setМaxCountOnCell(double мaxCountOnCell) {
-        this.мaxCountOnCell = мaxCountOnCell;
+    public void setMaxCountOnCell(double maxCountOnCell) {
+        this.maxCountOnCell = maxCountOnCell;
     }
 
     public int getMaxSpeed() {
