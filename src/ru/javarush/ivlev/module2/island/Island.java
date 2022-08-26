@@ -48,23 +48,34 @@ public class Island {
     public void islandDay(){
         startDay();
         everydayRoutine();
+        dyingOfHunger();
         // cells
     }
+
+    private void dyingOfHunger() {
+        allAnimals.forEach(animal -> {
+            if( animal.getReplete()<(animal.getSatisfiedWeight()*0.001) ) animal.die();
+        });
+    }
+
     public void startDay() {
         day++;
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (cells[i][j] instanceof IslandCell) {
                     ((IslandCell) cells[i][j]).growPlant();
-                    ((IslandCell) cells[i][j]).resetAnimalsDay();
                 }
             }
         }
+        allAnimals.forEach(animal -> animal.resetDayDistance());
+        allAnimals.forEach(animal -> animal.nightHunger());
     }
     private void everydayRoutine() {
         allAnimals.forEach(animal -> animal.eat());
         allAnimals.forEach(animal -> animal.multiplication());
         allAnimals.forEach(animal -> animal.move());
+
+
 
     }
 

@@ -14,11 +14,7 @@ public class IslandCell extends Cell {
     }
 
 
-    public void resetAnimalsDay() {
-        animals.forEach(a -> a.resetDayDistance());
-        animals.forEach(a -> a.nightHunger());
 
-    }
 
 
 

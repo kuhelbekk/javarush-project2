@@ -11,26 +11,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ParamIslandLoader {
-    private String jsonName;
     int heightIsland;
     int widthIsland;
     List<AnimalType> animalTypes;
 
     public ParamIslandLoader(String jsonName) {
-
-        this.jsonName = jsonName;
-
         try {
             JsonNode mainNode = new ObjectMapper().readTree(new File(jsonName ));
             widthIsland =  mainNode.get("width").asInt();
             heightIsland = mainNode.get("height").asInt();
             animalTypes = loadAnimals(mainNode.get("animals"));
-        } catch (
-                JsonProcessingException e) {
-            throw new RuntimeException("error Json format");
-        } catch (
-                IOException e) {
-            throw new RuntimeException("error Json file");
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("error Json format",e);
+        } catch (IOException e) {
+            throw new RuntimeException("error Json file",e);
         }
     }
 

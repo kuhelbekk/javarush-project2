@@ -10,9 +10,17 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
+    @Getter
+    @Setter
     private double maxCountOnCell; // удалить, так как это не свойство животного, а свойство клетки
+    @Getter
+    @Setter
     private int maxSpeed;
+    @Getter
+    @Setter
     private double replete; //сытость
+    @Getter
+    @Setter
     private double satisfiedWeight;
     @Getter
     private boolean isLive;
@@ -20,19 +28,21 @@ public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
     @Getter
     @Setter
     private boolean isMultiplicationInToday;
+    @Getter
     boolean canEatPlant;
+    @Getter
     int remainingDayDistance;
     /**
      * In cloned animals, the diet changes for everyone at once
      */
+    @Getter
     private Map<String,Double> canEat;
-    public Map<String, Double> getCanEat() {
-        return canEat;
-    }
 
     public void setCanEat(Map<String, Double> canEat) {
-        canEatPlant = true;
-        canEat.keySet().forEach(nameClass -> { if (nameClass.endsWith("plant.Plant")){ canEatPlant=true;}});
+        canEatPlant = false;
+        if(canEat.containsKey( "plant.Plant") ){
+            canEatPlant=true;
+        }
         this.canEat = canEat;
     }
 
@@ -44,7 +54,7 @@ public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
 
     @Override
     public double smallerWeight(double weight) {
-        isLive = false;
+        die();
         if (getWeight()<weight){
             Double res  = getWeight();
             setWeight( 0 );
@@ -54,41 +64,22 @@ public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
         return weight;
     }
 
+    public void die() {
+        isLive = false;
+    }
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 
-    public double getMaxCountOnCell() {
-        return maxCountOnCell;
-    }
-
-    public void setMaxCountOnCell(double maxCountOnCell) {
-        this.maxCountOnCell = maxCountOnCell;
-    }
-
-    public int getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public void setMaxSpeed(int maxSpeed) {
-        this.maxSpeed = maxSpeed;
-    }
-
-    public double getSatisfiedWeight() {
-        return satisfiedWeight;
-    }
-
-    public void setSatisfiedWeight(double satisfiedWeight) {
-        this.satisfiedWeight = satisfiedWeight;
-    }
 
 
     @Override
     public boolean eat() { // остстров спрашивает животное, хочет ли оно кушать..
         if(!isLive) return false;
         if (replete*0.9 >satisfiedWeight) return false;
-        List<IslandItem> animalsForFood =  getCell().getAptFood(canEat);// животное хочет есть и спрашивает что в меню
+        List<IslandItem> animalsForFood = getCell().getAptFood(canEat);// животное хочет есть и спрашивает что в меню
         if (animalsForFood.size()>0) {
             return getCell().eat(this, animalsForFood.get(0));
         }
@@ -107,14 +98,6 @@ public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
         }
     }
 
-    public int getRemainingDayDistance() { // остаток сил на бег
-        return remainingDayDistance;
-    }
-
-    public boolean isCanEatPlant() {
-        return canEatPlant;
-    }
-
 
     public void resetDayDistance(){
         remainingDayDistance = ThreadLocalRandom.current().nextInt(0, getMaxSpeed() + 1);
@@ -127,13 +110,6 @@ public abstract class Animal extends IslandItem implements Move,Eat, Cloneable {
         replete -= getWeight()/30;
     }
 
-    public double getReplete() {
-        return replete;
-    }
-
-    public void setReplete(double replete) {
-        this.replete = replete;
-    }
 
     public void addReplete(double weight){
         this.replete += weight;
