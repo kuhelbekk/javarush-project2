@@ -4,27 +4,33 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.javarush.ivlev.module2.animal.Animal;
+
 public class AnimalType {
-    Animal clonableAnimalType;
-    JsonNode classParams ;
     private final Class<Animal> classAnimal;
-    private int maxCountOnCell;
+    Animal clonableAnimalType;
+    JsonNode classParams;
+    private final int maxCountOnCell;
+
     public AnimalType(Class<Animal> classAnimal, int maxCountOnCell) {
         this.classAnimal = classAnimal;
         this.maxCountOnCell = maxCountOnCell;
     }
+
     public Class<Animal> getClassAnimal() {
         return classAnimal;
     }
+
     public int getMaxCountOnCell() {
         return maxCountOnCell;
     }
+
     public JsonNode getClassParams() {
         return classParams;
     }
+
     public void setClassParams(JsonNode classParams) {
         try {
-            clonableAnimalType  =  new ObjectMapper().treeToValue(classParams, getClassAnimal());
+            clonableAnimalType = new ObjectMapper().treeToValue(classParams, getClassAnimal());
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Error parse Json Animal params", e);
         }
@@ -36,7 +42,7 @@ public class AnimalType {
         try {
             return (Animal) clonableAnimalType.clone();
         } catch (CloneNotSupportedException e) {
-            throw new RuntimeException("Error clone Animal ",e);
+            throw new RuntimeException("Error clone Animal ", e);
         }
     }
 }

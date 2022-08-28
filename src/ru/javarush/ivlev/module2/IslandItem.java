@@ -6,7 +6,8 @@ public abstract class IslandItem {
     private Cell cell;
     private double weight;
 
-    protected IslandItem() {    }
+    protected IslandItem() {
+    }
 
     protected IslandItem(Cell cell) {
         this.cell = cell;
@@ -31,7 +32,6 @@ public abstract class IslandItem {
 
 
     /**
-     *
      * @param weight - desirable piece weight
      * @return what was eaten
      */
