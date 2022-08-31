@@ -20,16 +20,18 @@ public class IslandStat {
     }
 
     public void printStartDayStatistic(int dayNumber) {
-        out.println("Good Moning! Today " + dayNumber + " DAY ");
+        out.println("Good Morning! Today " + dayNumber + " DAY ");
         printStartDayStatistic();
     }
     public void printStartDayStatistic() {
         out.println("Animal count in island " + island.getAllAnimals().size());
+        int cellAnimals = 0;
         for (Cell[] cells : island.getCells()) {
             for (Cell cell : cells) {
-                cell.ani
+                cellAnimals+= cell.getAnimals().size();
             }
         }
+        out.println("Animal count in cells " + cellAnimals);
         out.println("Plant weight count in island " + formatter.format(island.getAllPlantWeight()));
 
 
@@ -45,8 +47,30 @@ public class IslandStat {
                 dieAnimalCount++;
             }
         }
+
+
+
+        int liveCellAnimals = 0;
+        int dieCellAnimals = 0;
+        for (Cell[] cells : island.getCells()) {
+            for (Cell cell : cells) {
+                for (Animal animal : cell.getAnimals()) {
+                    if (animal.isLive()){
+                        liveCellAnimals++;
+                    }else {
+                        dieCellAnimals++;
+                    }
+                }
+            }
+        }
         out.println("Live animal count in island " + liveAnimalCount);
-        out.println("Die animal in islend " + dieAnimalCount);
+        out.println("Die animal in island " + dieAnimalCount);
+        out.println("New animal in island " + island.getNewAnimalsToday());
+
+        out.println("Live animal count in cell " + liveCellAnimals);
+        out.println("Die animal in cell " + dieCellAnimals);
+
+
         out.println("Plant count in island " + formatter.format(island.getAllPlantWeight()));
 
     }

@@ -7,6 +7,7 @@ import ru.javarush.ivlev.module2.animal.Animal;
 import ru.javarush.ivlev.module2.plant.Plant;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class Cell {
@@ -14,7 +15,6 @@ public class Cell {
     @Getter
     List<Animal> animals;
     Plant plant;
- //   List<AnimalType> animaltypes;
     private final int posX;
     private final int posY;
     public Cell(Island parent, int posX, int posY) {
@@ -34,13 +34,10 @@ public class Cell {
         return posY;
     }
 
-    public List<Direction> getPossibleDirection(Animal animal) {
-        return island.getPossibleDirection(this, animal);
+    public List<Cell> getPossibleDirectionCell(Animal animal) {
+        return island.getPossibleDirectionCell(this, animal);
     }
 
-    public boolean animalMove(Animal animal, Direction direction) {
-        return island.animalMove(animal, direction, this);
-    }
 
     public boolean canСomeIn(Animal animal) {
         int countAnimalsTypeInCell = 0;
@@ -52,7 +49,7 @@ public class Cell {
 
     public void createAnimals(List<AnimalType> animalTypes) {
         for (AnimalType animaltype : animalTypes) {
-            int count = new Random().nextInt(animaltype.getMaxCountOnCell());
+            int count = ThreadLocalRandom.current().nextInt(animaltype.getMaxCountOnCell());
             for (int i = 0; i < count; i++) {
                 Animal animal = animaltype.getNewAnimal();
                 animal.setMaxCountOnCell(animaltype.getMaxCountOnCell());
@@ -89,22 +86,21 @@ public class Cell {
     }
 
     public IslandItem getFood(Map<String, Double> canEat) {
-        IslandItem res =null;
+        IslandItem result =null;
         for (String className : canEat.keySet()) {
             if (plant.getClass().getName().endsWith(className)){
-                if (plant.getWeight()>0) res = plant;
+                if (plant.getWeight()>0) result = plant;
             }else {
                 for (Animal animal : animals) {
                     if (animal.getClass().getName().endsWith(className)) {
-                        if (res == null || res.getWeight() < animal.getWeight()) res = animal ;
+                        if (result == null || result.getWeight() < animal.getWeight()) result = animal ;
                     }
                 }
             }
 
         }
-        return res;
+        return result;
     }
-
     public Double getPlantWeiht() {
         return plant.getWeight();
     }
@@ -131,8 +127,10 @@ public class Cell {
     public Animal getAnimalForMultiplication(Animal animal) {
         for (Animal candidate : animals) {
             if (candidate.isLive()) {
-                if ((candidate.getClass().getName().equals(animal.getClass().getName())) && (animal != candidate)) {
-                    return  candidate;
+                if (candidate.getClass().getName().equals(animal.getClass().getName())) {
+                    if (animal != candidate) {
+                        return candidate;
+                    }
                 }
             }
         }

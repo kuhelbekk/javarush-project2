@@ -13,9 +13,10 @@ public class Main {
             new UserDialog(paramsLoader, System.out, System.in, paramsLoader);
             Island island = new Island(paramsLoader.getWidth(), paramsLoader.getHeight(), paramsLoader.getAnimalTypes());
             IslandStat islandStat = new IslandStat(island, System.out);
+            island.setIslandStat(islandStat);
             int day=0;
             int steps = 300;
-            while (steps > 0) {
+            while (steps > 0 && island.getAllAnimals().size()>0) {
                 day++;
                 island.islandMorning(); // растет трава, мертвые животные пропадают, а живые набираются сил для перемещений и просыпаются немного голодынми
                 islandStat.printStartDayStatistic(day);
