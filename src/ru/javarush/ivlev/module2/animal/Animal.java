@@ -35,6 +35,9 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
     @Getter
     @Setter
     private boolean isMultiplied;
+    @Getter
+    @Setter
+    private String emoji;
     /**
      * In cloned animals, the diet changes for everyone at once
      */
@@ -74,10 +77,9 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
 
 
     @Override
-    public boolean eat() { // остстров спрашивает животное, хочет ли оно кушать..
+    public boolean eat() {
         if (!isLive) return false;
         if (replete * 0.9 > satisfiedWeight) return false;
-        // List<IslandItem> animalsForFood = getCell().getAptFood(canEat);// животное хочет есть и спрашивает что в меню
         IslandItem itemForFood = getCell().getFood(canEat);// животное хочет есть и спрашивает что в меню
 
         if (itemForFood != null) {
@@ -127,9 +129,8 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
                         remainingDayDistance--;
                         if (!isLive()) return;
                         if (toCell.canComeIn(this)) {
-                            //log.info("remove");
+                            log.info("thread:" +Thread.currentThread().getName() + "move:"+c1+c2);
                             getCell().getAnimals().remove(this);
-                            //log.info("add");
                             toCell.addAnimalToCell(this);
                         }
                         moveHunger();

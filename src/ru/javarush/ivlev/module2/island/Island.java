@@ -19,7 +19,6 @@ public class Island {
 
     private final int width;
     private final int height;
-
     @Getter
     private final Cell[][] cells;
     @Getter

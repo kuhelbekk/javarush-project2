@@ -1,232 +1,231 @@
 {
-  "height": 100,
-  "width": 20,
+  "height": 10,
+  "width": 2,
   "animals": [
     {
       "className": "animal.herbivores.Sheep",
       "maxCountOnCell": 140,
-      "emoji":  "🐑",
       "classParams": {
+        "emoji": "🐑",
         "weight": 70.0,
         "maxSpeed": 3,
         "satisfiedWeight": 15,
-        "canEat":{
-          "plant.Plant":1
+        "canEat": {
+          "plant.Plant": 1
         }
       }
     },
     {
       "className": "animal.herbivores.Buffalo",
       "maxCountOnCell": 10,
-      "emoji": "🐃",
       "classParams": {
+        "emoji": "🐃",
         "weight": 700.0,
         "maxSpeed": 3,
         "satisfiedWeight": 100,
-        "canEat":{
-          "plant.Plant":1
+        "canEat": {
+          "plant.Plant": 1
         }
       }
     },
     {
       "className": "animal.herbivores.Duck",
       "maxCountOnCell": 200,
-      "emoji": "🦆",
       "classParams": {
-        "weight" :1.0,
-        "maxSpeed" : 4,
-        "satisfiedWeight" : 0.15,
-        "canEat":{
-          "plant.Plant":1,
-          "animal.herbivores.Caterpillar":0.9
+        "emoji": "🦆",
+        "weight": 1.0,
+        "maxSpeed": 4,
+        "satisfiedWeight": 0.15,
+        "canEat": {
+          "plant.Plant": 1,
+          "animal.herbivores.Caterpillar": 0.9
         }
       }
     },
     {
       "className": "animal.herbivores.Caterpillar",
       "maxCountOnCell": 1000,
-      "emoji": "🐛",
       "classParams": {
+        "emoji": "🐛",
         "weight": 0.01,
         "maxSpeed": 0,
         "satisfiedWeight": 0,
-        "canEat":{
-          "plant.Plant":1
+        "canEat": {
+          "plant.Plant": 1
         }
       }
     },
     {
       "className": "animal.herbivores.Hog",
       "maxCountOnCell": 50,
-      "emoji": "🐗",
+
       "classParams": {
+        "emoji": "🐗",
         "weight": 400.0,
         "maxSpeed": 2,
         "satisfiedWeight": 50,
-        "canEat":{
-          "plant.Plant":1,
-          "animal.herbivores.Mouse":0.5,
-          "animal.herbivores.Caterpillar":0.9
+        "canEat": {
+          "plant.Plant": 1,
+          "animal.herbivores.Mouse": 0.5,
+          "animal.herbivores.Caterpillar": 0.9
         }
       }
     },
     {
       "className": "animal.herbivores.Goat",
       "maxCountOnCell": 140,
-      "emoji": "🐐",
       "classParams": {
+        "emoji": "🐐",
         "weight": 60.0,
         "maxSpeed": 3,
         "satisfiedWeight": 10,
-        "canEat":{
-          "plant.Plant":1
+        "canEat": {
+          "plant.Plant": 1
         }
       }
     },
     {
       "className": "animal.herbivores.Mouse",
       "maxCountOnCell": 500,
-      "emoji": "🐁",
       "classParams": {
+        "emoji": "🐁",
         "weight": 0.05,
         "maxSpeed": 1,
         "satisfiedWeight": 0.01,
-        "canEat":{
-          "plant.Plant":1,
-          "animal.herbivores.Caterpillar":0.9
+        "canEat": {
+          "plant.Plant": 1,
+          "animal.herbivores.Caterpillar": 0.9
         }
       }
     },
     {
       "className": "animal.herbivores.Rabbit",
       "maxCountOnCell": 150,
-      "emoji": "🐇",
       "classParams": {
+        "emoji": "🐇",
         "weight": 2.0,
         "maxSpeed": 2,
         "satisfiedWeight": 0.45,
-        "canEat":{
-          "plant.Plant":1
+        "canEat": {
+          "plant.Plant": 1
         }
       }
     },
     {
       "className": "animal.herbivores.Deer",
       "maxCountOnCell": 20,
-      "emoji": "🦌",
       "classParams": {
+        "emoji": "🦌",
         "weight": 300.0,
         "maxSpeed": 4,
         "satisfiedWeight": 50,
-        "canEat":{
-          "plant.Plant":1
+        "canEat": {
+          "plant.Plant": 1
         }
       }
     },
     {
       "className": "animal.herbivores.Horse",
       "maxCountOnCell": 20,
-      "emoji": "🐎",
       "classParams": {
+        "emoji": "🐎",
         "weight": 400.0,
         "maxSpeed": 4,
         "satisfiedWeight": 60,
-        "canEat":{
-          "plant.Plant":1
+        "canEat": {
+          "plant.Plant": 1
         }
       }
     },
     {
       "className": "animal.predators.Eagle",
       "maxCountOnCell": 20,
-      "emoji": "🦅",
       "classParams": {
+        "emoji": "🦅",
         "weight": 6.0,
         "maxSpeed": 3,
         "satisfiedWeight": 1,
-        "canEat":{
-          "animal.predator.Fox":0.1,
-          "animal.herbivores.Rabbit":0.9,
-          "animal.herbivores.Mouse":0.9,
-          "animal.herbivores.Duck":0.8
+        "canEat": {
+          "animal.predator.Fox": 0.1,
+          "animal.herbivores.Rabbit": 0.9,
+          "animal.herbivores.Mouse": 0.9,
+          "animal.herbivores.Duck": 0.8
         }
       }
     },
     {
       "className": "animal.predators.Bear",
       "maxCountOnCell": 5,
-      "emoji": "🐻",
       "classParams": {
+        "emoji": "🐻",
         "weight": 500.0,
         "maxSpeed": 2,
-        "satisfiedWeight":80,
-        "canEat":{
-          "animal.predator.Boa":0.8,
-          "animal.herbivores.Horse":0.4,
-          "animal.herbivores.Deer":0.8,
-          "animal.herbivores.Rabbit":0.8,
-          "animal.herbivores.Mouse":0.9,
-          "animal.herbivores.Goat":0.7,
-          "animal.herbivores.Sheep":0.7,
-          "animal.herbivores.Hog":0.5,
-          "animal.herbivores.Buffalo":0.2,
-          "animal.herbivores.Duck":0.1
+        "satisfiedWeight": 80,
+        "canEat": {
+          "animal.predator.Boa": 0.8,
+          "animal.herbivores.Horse": 0.4,
+          "animal.herbivores.Deer": 0.8,
+          "animal.herbivores.Rabbit": 0.8,
+          "animal.herbivores.Mouse": 0.9,
+          "animal.herbivores.Goat": 0.7,
+          "animal.herbivores.Sheep": 0.7,
+          "animal.herbivores.Hog": 0.5,
+          "animal.herbivores.Buffalo": 0.2,
+          "animal.herbivores.Duck": 0.1
         }
       }
-    }
-	,
+    },
     {
       "className": "animal.predators.Wolf",
       "maxCountOnCell": 30,
-      "emoji": "🐺",
       "classParams": {
+        "emoji": "🐺",
         "weight": 50.0,
         "maxSpeed": 3,
         "satisfiedWeight": 8,
-        "canEat":{
-          "animal.herbivores.Horse":0.1,
-          "animal.herbivores.Deer":0.15,
-          "animal.herbivores.Rabbit":0.6,
-          "animal.herbivores.Mouse":0.8,
-          "animal.herbivores.Goat":0.6,
-          "animal.herbivores.Sheep":0.7,
-          "animal.herbivores.Hog":0.15,
-          "animal.herbivores.Buffalo":0.1,
-          "animal.herbivores.Duck":0.4
+        "canEat": {
+          "animal.herbivores.Horse": 0.1,
+          "animal.herbivores.Deer": 0.15,
+          "animal.herbivores.Rabbit": 0.6,
+          "animal.herbivores.Mouse": 0.8,
+          "animal.herbivores.Goat": 0.6,
+          "animal.herbivores.Sheep": 0.7,
+          "animal.herbivores.Hog": 0.15,
+          "animal.herbivores.Buffalo": 0.1,
+          "animal.herbivores.Duck": 0.4
         }
       }
     },
     {
       "className": "animal.predators.Boa",
       "maxCountOnCell": 30,
-      "emoji": "🐍",
       "classParams": {
+        "emoji": "🐍",
         "weight": 15.0,
         "maxSpeed": 1,
-        "satisfiedWeight":3.0,
-        "canEat":{
-          "animal.predator.Fox":0.15,
-          "animal.herbivores.Rabbit":0.2,
-          "animal.herbivores.Mouse":0.4,
-          "animal.herbivores.Duck":0.1
+        "satisfiedWeight": 3.0,
+        "canEat": {
+          "animal.predator.Fox": 0.15,
+          "animal.herbivores.Rabbit": 0.2,
+          "animal.herbivores.Mouse": 0.4,
+          "animal.herbivores.Duck": 0.1
         }
       }
     },
     {
       "className": "animal.predators.Fox",
       "maxCountOnCell": 30,
-      "emoji": "🦊",
       "classParams": {
+        "emoji": "🦊",
         "weight": 8.0,
         "maxSpeed": 2,
-        "satisfiedWeight":2.0,
-        "canEat":{
-          "animal.herbivores.Rabbit":0.7,
-          "animal.herbivores.Mouse":0.9,
-          "animal.herbivores.Duck":0.6,
-          "animal.herbivores.Caterpillar":0.4
+        "satisfiedWeight": 2.0,
+        "canEat": {
+          "animal.herbivores.Rabbit": 0.7,
+          "animal.herbivores.Mouse": 0.9,
+          "animal.herbivores.Duck": 0.6,
+          "animal.herbivores.Caterpillar": 0.4
         }
-				
       }
     }
   ]
