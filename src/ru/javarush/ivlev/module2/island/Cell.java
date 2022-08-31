@@ -110,20 +110,6 @@ public class Cell {
     }
 
 
-//    public List<Animal> animalsForMultiplication(Animal animal) {
-//        List<Animal> candidateList = new ArrayList<>();
-//        for (Animal candidate : animals) {
-//            if (candidate.isLive()) {
-//                if ((candidate.getClass().getName().equals(animal.getClass().getName())) && (animal != candidate)) {
-//                    candidateList.add(candidate);
-//                }
-//            }
-//        }
-//        //  берем самого сытого
-//        candidateList = candidateList.stream().sorted(Comparator.comparingDouble(Animal::getReplete)).collect(Collectors.toList());
-//        return candidateList;
-//    }
-
     public Animal getAnimalForMultiplication(Animal animal) {
         for (Animal candidate : animals) {
             if (candidate.isLive()) {

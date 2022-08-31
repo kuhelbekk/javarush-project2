@@ -11,6 +11,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 
 public abstract class Animal extends IslandItem implements Move, Eat, Cloneable {
+    private static final double NIGHT_HUNGER_MULTIPLIER = 0.1;
+    private static final double MOVE_HUNGER_MULTIPLIER = 0.05;
     @Getter
     boolean canEatPlant;
     @Getter
@@ -150,21 +152,20 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
     }
 
     public void nightHunger() {
-        replete -= getSatisfiedWeight() / 10;
+        replete -= getSatisfiedWeight() * NIGHT_HUNGER_MULTIPLIER;
         if (replete < 0) replete = 0;
     }
 
     public void moveHunger() {
-        replete -= getWeight() / 30;
+        replete -= getWeight() * MOVE_HUNGER_MULTIPLIER;
         if (replete < 0) replete = 0;
     }
 
 
     public void addReplete(double weight) {
         this.replete += weight;
-        if ((replete - 0.001) > satisfiedWeight) {
+        if ((replete - MOVE_HUNGER_MULTIPLIER) > satisfiedWeight) {
             replete = satisfiedWeight;
-            System.out.println("Животное съело больше чем смогло!");
         }
     }
 
@@ -195,14 +196,13 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
 
 
     boolean isReadyReproduction(Animal animal) {
-
         return animal.isLive() &&
                 isLive() &&
                 !isMultiplied() &&
                 !animal.isMultiplied() &&
                 animal.getCell() == getCell() &&
-                animal.getReplete() > 0.01 &&
-                getReplete() > 0.01;
+                animal.getReplete() > MOVE_HUNGER_MULTIPLIER &&
+                getReplete() > MOVE_HUNGER_MULTIPLIER;
 
     }
 
