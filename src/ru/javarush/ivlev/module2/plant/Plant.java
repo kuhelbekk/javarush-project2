@@ -5,8 +5,7 @@ import ru.javarush.ivlev.module2.IslandItem;
 import java.util.Random;
 
 public class Plant extends IslandItem {
-    double maxWeightOnCell;
-
+    private double maxWeightOnCell;
     public Plant() {
         maxWeightOnCell = 200; // todo  грузить из настроек
         grow();

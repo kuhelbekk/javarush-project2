@@ -5,28 +5,24 @@ import ru.javarush.ivlev.module2.island.Island;
 import java.io.File;
 
 public class Main {
-    static Island island;
-
+    private static final int  YEAR = 365;
+    static String defaultSettingsFileName = "resources" + File.separator + "islandOne.json";
     public static void main(String[] args) {
-
-        ParamIslandLoader paramsLoader = new ParamIslandLoader("resources" + File.separator + "islandOne.json");
-        new UserDialog(paramsLoader, System.out, System.in, paramsLoader);
+        UserDialog userDialog = new UserDialog( System.out, System.in);
+        ParamIslandLoader paramsLoader = new ParamIslandLoader(userDialog.getFileName(defaultSettingsFileName));
+        userDialog.createIsland(paramsLoader.getWidth(), paramsLoader.getHeight()) ;
         Island island = new Island(paramsLoader.getWidth(), paramsLoader.getHeight(), paramsLoader.getAnimalTypes());
-        IslandStat islandStat = new IslandStat(island, System.out);
-        island.setIslandStat(islandStat);
+        IslandStat islandStat = new IslandStat(island, System.out,userDialog.detailedStatistics());
         int day = 0;
-        int steps = 300;
-        while (steps > 0 && island.getAllAnimals().size() > 0) {
+        int maxDay = YEAR;
+        while (day<maxDay && island.getAllAnimals().size() > 0) {
             day++;
             island.islandMorning(); // растет трава, мертвые животные пропадают, а живые набираются сил для перемещений и просыпаются немного голодынми
             islandStat.printStartDayStatistic(day);
+            long millis = System.currentTimeMillis();
             island.islandDay(); // животные едят, размножаются и бегут
-            steps--;
-            islandStat.printEndDayStatistic();
+            System.out.println("time day " + (System.currentTimeMillis() - millis));
+            islandStat.printStatistic();
         }
-
-
     }
-
-
 }

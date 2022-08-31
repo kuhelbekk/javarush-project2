@@ -1,8 +1,6 @@
 package ru.javarush.ivlev.module2.island;
 
 import lombok.Getter;
-import lombok.Setter;
-import ru.javarush.ivlev.module2.IslandStat;
 import ru.javarush.ivlev.module2.animal.Animal;
 
 import java.util.ArrayList;
@@ -14,18 +12,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-
 public class Island {
-
     private final int width;
     private final int height;
     @Getter
     private final Cell[][] cells;
     @Getter
     private final List<Animal> allAnimals;
+    @Getter
     private final List<AnimalType> animalTypes;
-    @Setter
-    IslandStat islandStat;
     @Getter
     private int newAnimalsToday;
 
@@ -44,34 +39,24 @@ public class Island {
         }
     }
 
-
     public void islandDay() {
-        long millis = System.currentTimeMillis();
         ExecutorService executor = Executors.newFixedThreadPool(4);
         for (Animal animal : allAnimals) {
             executor.submit(animal::eat);
+            executor.submit(animal::move);
         }
         executor.shutdown();
-        for (Animal animal : allAnimals) {
-            animal.move();
-        }
-        System.out.println("move done" + (System.currentTimeMillis() - millis));
+        var newAnimals = multiplication();
         try {
-            if (!executor.awaitTermination(10, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(20, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             executor.shutdownNow();
         }
-        System.out.println("eat done" + (System.currentTimeMillis() - millis));
-        var newAnimals = multiplication();
         dyingOfHunger();
         newAnimalsToday = newAnimals.size();
         allAnimals.addAll(newAnimals);
-        System.out.println("time day " + (System.currentTimeMillis() - millis));
-
-        //millis = System.currentTimeMillis();
-
     }
 
     private int dyingOfHunger() {
@@ -92,7 +77,6 @@ public class Island {
             if (newAnimal != null) newAnimals.add(newAnimal);
         });
         return newAnimals;
-
     }
 
     public void islandMorning() {
@@ -110,8 +94,6 @@ public class Island {
     }
 
     private void clearDeadAnimals() {
-
-
         Iterator<Animal> animalIterator = allAnimals.iterator();
         while (animalIterator.hasNext()) {
             // var animal =animalIterator.next() ;
@@ -122,7 +104,7 @@ public class Island {
 
         for (Cell[] cellArray : cells) {
             for (Cell cell : cellArray) {
-                animalIterator = cell.animals.iterator();
+                animalIterator = cell.getAnimals().iterator();
                 while (animalIterator.hasNext()) {
                     //var animal = animalIterator.next();
                     if (!animalIterator.next().isLive()) {
@@ -130,7 +112,6 @@ public class Island {
                     }
                 }
             }
-
         }
     }
 
@@ -163,11 +144,11 @@ public class Island {
     }
 
 
-    public double getAllPlantWeight() {
+    public double getPlantWeight() {
         double res = 0;
         for (Cell[] cellArray : getCells()) {
             for (Cell cell : cellArray) {
-                res += cell.getPlant().getWeight();
+                res += cell.getPlantWeight();
             }
         }
         return res;

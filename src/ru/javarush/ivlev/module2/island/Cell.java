@@ -16,10 +16,11 @@ import java.util.stream.Collectors;
 public class Cell {
     private final int posX;
     private final int posY;
-    Island island;
+    private final Island island;
     @Getter
-    List<Animal> animals;
-    Plant plant;
+    private List<Animal> animals;
+
+    private Plant plant;
 
     public Cell(Island parent, int posX, int posY) {
         this.posX = posX;
@@ -42,13 +43,12 @@ public class Cell {
         return island.getPossibleDirectionCell(this, animal);
     }
 
-
     public boolean canComeIn(Animal animal) {
         int countAnimalsTypeInCell = 0;
         for (Animal animalF : animals) {
-            if (animalF.getClass() == animal.getClass()) countAnimalsTypeInCell++;
+            if (animalF.getType() == animal.getType()) countAnimalsTypeInCell++;
         }
-        return countAnimalsTypeInCell < animal.getMaxCountOnCell();
+        return countAnimalsTypeInCell < animal.getType().getMaxCountOnCell();
     }
 
     public void createAnimals(List<AnimalType> animalTypes) {
@@ -56,7 +56,6 @@ public class Cell {
             int count = ThreadLocalRandom.current().nextInt(animaltype.getMaxCountOnCell());
             for (int i = 0; i < count; i++) {
                 Animal animal = animaltype.getNewAnimal();
-                animal.setMaxCountOnCell(animaltype.getMaxCountOnCell());
                 animal.setReplete(animal.getSatisfiedWeight()); //  новое сразу сытое
                 addAnimalToCell(animal);
                 island.addAnimal(animal);
@@ -67,7 +66,6 @@ public class Cell {
     public void addAnimalToCell(Animal animal) {
         animals.add(animal);
         animal.setCell(this);
-
     }
 
     public void growPlant() {
@@ -102,30 +100,20 @@ public class Cell {
                     }
                 }
             }
-
         }
         return result;
     }
 
-    public Double getPlantWeiht() {
-        return plant.getWeight();
-    }
-
-    public Plant getPlant() {
-        return plant;
-    }
-
-
     public Animal getAnimalForMultiplication(Animal animal) {
         for (Animal candidate : animals) {
-            if (candidate.isLive()) {
-                if (candidate.getClass().getName().equals(animal.getClass().getName())) {
-                    if (animal != candidate) {
-                        return candidate;
-                    }
-                }
+            if (candidate.isLive() && candidate.getType() == animal.getType() && animal != candidate) {
+                return candidate;
             }
         }
         return null;
+    }
+
+    public double getPlantWeight() {
+        return plant.getWeight();
     }
 }
