@@ -8,7 +8,7 @@ public class Main {
     static Island island;
 
     public static void main(String[] args) {
-        try {
+
             ParamIslandLoader paramsLoader = new ParamIslandLoader("resources" + File.separator + "islandOne.json");
             new UserDialog(paramsLoader, System.out, System.in, paramsLoader);
             Island island = new Island(paramsLoader.getWidth(), paramsLoader.getHeight(), paramsLoader.getAnimalTypes());
@@ -24,10 +24,7 @@ public class Main {
                 steps--;
                 islandStat.printEndDayStatistic();
             }
-        } catch (RuntimeException e) {
-            System.out.println("Something went wrong");
-            e.printStackTrace();
-        }
+
 
 
     }

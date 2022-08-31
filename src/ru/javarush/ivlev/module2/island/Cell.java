@@ -21,7 +21,7 @@ public class Cell {
         this.posX = posX;
         this.posY = posY;
         this.island = parent;
-        animals = new LinkedList<>();
+        animals = new ArrayList<>();
         plant = new Plant();
         plant.setCell(this);
     }
@@ -39,7 +39,7 @@ public class Cell {
     }
 
 
-    public boolean canСomeIn(Animal animal) {
+    public boolean canComeIn(Animal animal) {
         int countAnimalsTypeInCell = 0;
         for (Animal animalF : animals) {
             if (animalF.getClass() == animal.getClass()) countAnimalsTypeInCell++;

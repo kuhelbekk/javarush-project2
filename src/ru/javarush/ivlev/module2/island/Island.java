@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+
 public class Island {
 
     private final int width;
@@ -47,32 +48,23 @@ public class Island {
     public void islandDay() {
         long millis = System.currentTimeMillis();
         ExecutorService executor = Executors.newFixedThreadPool(4);
-
+        for (Animal animal : allAnimals) {
+            executor.submit(animal::eat);
+        }
+        executor.shutdown();
         for (Animal animal : allAnimals) {
             animal.move();
         }
-
-
-        for (Animal animal : allAnimals) {
-            animal.eat();
-        }
-        System.out.println("t2 "+ (System.currentTimeMillis()-millis));
-        var newAnimals =  multiplication();
-        System.out.println("t3 "+ (System.currentTimeMillis()-millis));
-
-            //executor.submit(animal::eat);
-            //executor.submit(animal::move);
-
-
-        System.out.println("t4 "+ (System.currentTimeMillis()-millis));
-        executor.shutdown();
+        System.out.println("move done"+ (System.currentTimeMillis()-millis));
         try {
-            if (!executor.awaitTermination(80, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(10, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             executor.shutdownNow();
         }
+        System.out.println("eat done"+ (System.currentTimeMillis()-millis));
+        var newAnimals =  multiplication();
         dyingOfHunger();
         newAnimalsToday = newAnimals.size();
         allAnimals.addAll(newAnimals);
@@ -149,22 +141,22 @@ public class Island {
         int x = cell.getPosX();
         int y = cell.getPosY();
         if (y > 0) {
-            if (cells[x][y - 1].canСomeIn(animal)) {
+            if (cells[x][y - 1].canComeIn(animal)) {
                 res.add(cells[x][y - 1]);
             }
         }
         if (x > 0) {
-            if (cells[x - 1][y].canСomeIn(animal)) {
+            if (cells[x - 1][y].canComeIn(animal)) {
                 res.add(cells[x - 1][y]);
             }
         }
         if (y < height - 1) {
-            if (cells[x][y + 1].canСomeIn(animal)) {
+            if (cells[x][y + 1].canComeIn(animal)) {
                 res.add(cells[x][y + 1]);
             }
         }
         if (x < width - 1) {
-            if (cells[x + 1][y].canСomeIn(animal)) {
+            if (cells[x + 1][y].canComeIn(animal)) {
                 res.add(cells[x + 1][y]);
             }
         }

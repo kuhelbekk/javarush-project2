@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.javarush.ivlev.module2.IslandItem;
 import ru.javarush.ivlev.module2.island.Cell;
-import ru.javarush.ivlev.module2.island.Direction;
 
 import java.util.List;
 import java.util.Map;
@@ -110,8 +109,6 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
     }
 
 
-
-
     @Override
     public void move() {
         if (!isLive) return;
@@ -119,20 +116,29 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
             List<Cell> possibleCellForMove = getCell().getPossibleDirectionCell(this);
             if (possibleCellForMove.size() > 0) {
                 Cell toCell = possibleCellForMove.get(ThreadLocalRandom.current().nextInt(0, possibleCellForMove.size()));
-                synchronized (toCell){
-                    synchronized (this){
+                Cell c1, c2;
+                if (toCell.hashCode() > hashCode()) {
+                    c1 = getCell();
+                    c2 = toCell;
+                } else {
+                    c2 = getCell();
+                    c1 = toCell;
+                }
+                synchronized (c1) {
+                    synchronized (c2) {
                         remainingDayDistance--;
-                        if (!isLive())  return ;
-                        if (toCell.canСomeIn(this)) {
+                        if (!isLive()) return;
+                        if (toCell.canComeIn(this)) {
+                            //log.info("remove");
                             getCell().getAnimals().remove(this);
-                            setCell(toCell);
-                            toCell.getAnimals().add(this);
+                            //log.info("add");
+                            toCell.addAnimalToCell(this);
                         }
                         moveHunger();
                     }
                 }
-            }else{
-                remainingDayDistance=0;
+            } else {
+                remainingDayDistance = 0;
             }
         }
 
@@ -164,24 +170,25 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
 
     public Animal multiplication() {
 
+        Animal result = null;
         Animal animalForMultiplication = getCell().getAnimalForMultiplication(this);
         if (animalForMultiplication == null) return null;
-        Animal a1,a2;
-        if (animalForMultiplication.hashCode()>hashCode()){
+        Animal a1, a2;
+        if (animalForMultiplication.hashCode() > hashCode()) {
             a1 = this;
             a2 = animalForMultiplication;
-        }else {
+        } else {
             a2 = this;
             a1 = animalForMultiplication;
         }
-        synchronized (a1){
-            synchronized (a2){
+        synchronized (a1) {
+            synchronized (a2) {
                 synchronized (getCell()) {
-                    if (!isReadyReproduction(animalForMultiplication)) return null;
-                    return getBaby(animalForMultiplication);
+                    if (isReadyReproduction(animalForMultiplication)) result = getBaby(animalForMultiplication);
                 }
             }
         }
+        return result;
 
 
     }
@@ -189,20 +196,20 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
 
     boolean isReadyReproduction(Animal animal) {
 
-            return  animal.isLive() &&
-                    isLive() &&
-                    !isMultiplied()&&
-                    !animal.isMultiplied() &&
-                    animal.getCell() == getCell() &&
-                    animal.getReplete()>0.01 &&
-                    getReplete()>0.01 ;
+        return animal.isLive() &&
+                isLive() &&
+                !isMultiplied() &&
+                !animal.isMultiplied() &&
+                animal.getCell() == getCell() &&
+                animal.getReplete() > 0.01 &&
+                getReplete() > 0.01;
 
     }
 
-    public Animal getBaby(Animal animalForMultiplication){
+    public Animal getBaby(Animal animalForMultiplication) {
         setMultiplied(true);
         animalForMultiplication.setMultiplied(true);
-        if (getCell().canСomeIn(this)) {
+        if (getCell().canComeIn(this)) {
             if (ThreadLocalRandom.current().nextDouble() > 0.5) {//dice 50/50
                 try {
                     Animal newAnimal = (Animal) this.clone();
@@ -210,6 +217,7 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
                     newAnimal.remainingDayDistance = 0; // родвшееся животное никуда не ходит, а растет всю ночь, и ждет пока окрепнут ноги.
                     animalForMultiplication.moveHunger();// на размножение тоже требуется энергия
                     moveHunger();
+                  //  log.info("add newAnimal");
                     getCell().addAnimalToCell(newAnimal);
                     return newAnimal;
                 } catch (CloneNotSupportedException e) {
