@@ -6,17 +6,21 @@ import ru.javarush.ivlev.module2.IslandItem;
 import ru.javarush.ivlev.module2.animal.Animal;
 import ru.javarush.ivlev.module2.plant.Plant;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class Cell {
+    private final int posX;
+    private final int posY;
     Island island;
     @Getter
     List<Animal> animals;
     Plant plant;
-    private final int posX;
-    private final int posY;
+
     public Cell(Island parent, int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
@@ -60,11 +64,12 @@ public class Cell {
         }
     }
 
-    public void addAnimalToCell(Animal animal){
+    public void addAnimalToCell(Animal animal) {
         animals.add(animal);
         animal.setCell(this);
 
     }
+
     public void growPlant() {
         plant.grow();
     }
@@ -73,11 +78,11 @@ public class Cell {
         List<IslandItem> res = new ArrayList<>();
         for (String className : canEat.keySet()) {
             for (Animal animal : animals) {
-                if (animal.getClass().getName().endsWith(className)){
+                if (animal.getClass().getName().endsWith(className)) {
                     res.add(animal);
                 }
             }
-            if (plant.getClass().getName().endsWith(className)){
+            if (plant.getClass().getName().endsWith(className)) {
                 res.add(plant);
             }
         }
@@ -86,14 +91,14 @@ public class Cell {
     }
 
     public IslandItem getFood(Map<String, Double> canEat) {
-        IslandItem result =null;
+        IslandItem result = null;
         for (String className : canEat.keySet()) {
-            if (plant.getClass().getName().endsWith(className)){
-                if (plant.getWeight()>0) result = plant;
-            }else {
+            if (plant.getClass().getName().endsWith(className)) {
+                if (plant.getWeight() > 0) result = plant;
+            } else {
                 for (Animal animal : animals) {
                     if (animal.getClass().getName().endsWith(className)) {
-                        if (result == null || result.getWeight() < animal.getWeight()) result = animal ;
+                        if (result == null || result.getWeight() < animal.getWeight()) result = animal;
                     }
                 }
             }
@@ -101,6 +106,7 @@ public class Cell {
         }
         return result;
     }
+
     public Double getPlantWeiht() {
         return plant.getWeight();
     }

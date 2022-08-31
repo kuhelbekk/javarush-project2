@@ -7,9 +7,9 @@ import ru.javarush.ivlev.module2.animal.Animal;
 
 public class AnimalType {
     private final Class<Animal> classAnimal;
+    private final int maxCountOnCell;
     Animal clonableAnimalType;
     JsonNode classParams;
-    private final int maxCountOnCell;
 
     public AnimalType(Class<Animal> classAnimal, int maxCountOnCell) {
         this.classAnimal = classAnimal;

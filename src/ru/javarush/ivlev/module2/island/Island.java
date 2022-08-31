@@ -5,7 +5,10 @@ import lombok.Setter;
 import ru.javarush.ivlev.module2.IslandStat;
 import ru.javarush.ivlev.module2.animal.Animal;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -22,12 +25,10 @@ public class Island {
     @Getter
     private final List<Animal> allAnimals;
     private final List<AnimalType> animalTypes;
-    @Getter
-    private int newAnimalsToday;
-
-
     @Setter
     IslandStat islandStat;
+    @Getter
+    private int newAnimalsToday;
 
     public Island(int width, int height, List<AnimalType> animalTypes) {
         this.animalTypes = animalTypes;
@@ -55,7 +56,7 @@ public class Island {
         for (Animal animal : allAnimals) {
             animal.move();
         }
-        System.out.println("move done"+ (System.currentTimeMillis()-millis));
+        System.out.println("move done" + (System.currentTimeMillis() - millis));
         try {
             if (!executor.awaitTermination(10, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
@@ -63,18 +64,18 @@ public class Island {
         } catch (InterruptedException e) {
             executor.shutdownNow();
         }
-        System.out.println("eat done"+ (System.currentTimeMillis()-millis));
-        var newAnimals =  multiplication();
+        System.out.println("eat done" + (System.currentTimeMillis() - millis));
+        var newAnimals = multiplication();
         dyingOfHunger();
         newAnimalsToday = newAnimals.size();
         allAnimals.addAll(newAnimals);
-        System.out.println("time day "+ (System.currentTimeMillis()-millis));
+        System.out.println("time day " + (System.currentTimeMillis() - millis));
 
-       //millis = System.currentTimeMillis();
+        //millis = System.currentTimeMillis();
 
     }
 
-    private int  dyingOfHunger() {
+    private int dyingOfHunger() {
         AtomicInteger count = new AtomicInteger();
         allAnimals.forEach(animal -> {
             if (animal.isLive() && animal.getReplete() < (animal.getSatisfiedWeight() * 0.001)) {
@@ -85,11 +86,11 @@ public class Island {
         return count.get();
     }
 
-    List<Animal> multiplication(){
+    List<Animal> multiplication() {
         List<Animal> newAnimals = new ArrayList<>();// тут новорожденные
         allAnimals.forEach(animal -> {
             var newAnimal = animal.multiplication();
-            if (newAnimal!=null) newAnimals.add(newAnimal);
+            if (newAnimal != null) newAnimals.add(newAnimal);
         });
         return newAnimals;
 
@@ -113,9 +114,9 @@ public class Island {
 
 
         Iterator<Animal> animalIterator = allAnimals.iterator();
-        while (animalIterator.hasNext()){
-           // var animal =animalIterator.next() ;
-            if(!animalIterator.next().isLive()) {
+        while (animalIterator.hasNext()) {
+            // var animal =animalIterator.next() ;
+            if (!animalIterator.next().isLive()) {
                 animalIterator.remove();
             }
         }
@@ -123,17 +124,16 @@ public class Island {
         for (Cell[] cellArray : cells) {
             for (Cell cell : cellArray) {
                 animalIterator = cell.animals.iterator();
-                while (animalIterator.hasNext()){
+                while (animalIterator.hasNext()) {
                     //var animal = animalIterator.next();
-                    if(!animalIterator.next().isLive()) {
-                         animalIterator.remove();
+                    if (!animalIterator.next().isLive()) {
+                        animalIterator.remove();
                     }
                 }
             }
 
         }
     }
-
 
 
     public List<Cell> getPossibleDirectionCell(Cell cell, Animal animal) {
@@ -162,9 +162,6 @@ public class Island {
         }
         return res;
     }
-
-
-
 
 
     public double getAllPlantWeight() {

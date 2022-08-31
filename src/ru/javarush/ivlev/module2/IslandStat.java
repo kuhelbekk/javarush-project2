@@ -9,10 +9,9 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class IslandStat {
+    static NumberFormat formatter = new DecimalFormat("#0.00");
     private final Island island;
     private final PrintStream out;
-
-    static NumberFormat formatter = new DecimalFormat("#0.00");
 
     public IslandStat(Island island, PrintStream out) {
         this.island = island;
@@ -23,12 +22,13 @@ public class IslandStat {
         out.println("Good Morning! Today " + dayNumber + " DAY ");
         printStartDayStatistic();
     }
+
     public void printStartDayStatistic() {
         out.println("Animal count in island " + island.getAllAnimals().size());
         int cellAnimals = 0;
         for (Cell[] cells : island.getCells()) {
             for (Cell cell : cells) {
-                cellAnimals+= cell.getAnimals().size();
+                cellAnimals += cell.getAnimals().size();
             }
         }
         out.println("Animal count in cells " + cellAnimals);
@@ -41,13 +41,12 @@ public class IslandStat {
         int liveAnimalCount = 0;
         int dieAnimalCount = 0;
         for (Animal animal : island.getAllAnimals()) {
-            if (animal.isLive()){
+            if (animal.isLive()) {
                 liveAnimalCount++;
-            }else {
+            } else {
                 dieAnimalCount++;
             }
         }
-
 
 
         int liveCellAnimals = 0;
@@ -55,9 +54,9 @@ public class IslandStat {
         for (Cell[] cells : island.getCells()) {
             for (Cell cell : cells) {
                 for (Animal animal : cell.getAnimals()) {
-                    if (animal.isLive()){
+                    if (animal.isLive()) {
                         liveCellAnimals++;
-                    }else {
+                    } else {
                         dieCellAnimals++;
                     }
                 }

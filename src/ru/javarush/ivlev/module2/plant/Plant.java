@@ -25,7 +25,7 @@ public class Plant extends IslandItem {
 
     public void grow() {
         double newWeight = getWeight() + maxWeightOnCell * new Random().nextDouble();
-        if (newWeight> maxWeightOnCell) newWeight = maxWeightOnCell;
+        if (newWeight > maxWeightOnCell) newWeight = maxWeightOnCell;
         setWeight(newWeight);
     }
 }

@@ -17,14 +17,14 @@ public class ParamIslandLoader {
 
     public ParamIslandLoader(String jsonName) {
         try {
-            JsonNode mainNode = new ObjectMapper().readTree(new File(jsonName ));
-            widthIsland =  mainNode.get("width").asInt();
+            JsonNode mainNode = new ObjectMapper().readTree(new File(jsonName));
+            widthIsland = mainNode.get("width").asInt();
             heightIsland = mainNode.get("height").asInt();
             animalTypes = loadAnimals(mainNode.get("animals"));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("error Json format",e);
+            throw new RuntimeException("error Json format", e);
         } catch (IOException e) {
-            throw new RuntimeException("error Json file",e);
+            throw new RuntimeException("error Json file", e);
         }
     }
 
@@ -35,7 +35,7 @@ public class ParamIslandLoader {
             String className = IslandItem.class.getPackageName() + "." + animalNode.get("className").asText();
             try {
                 clazz = Class.forName(className);
-                AnimalType animalType = new AnimalType(clazz,animalNode.get("maxCountOnCell").asInt());
+                AnimalType animalType = new AnimalType(clazz, animalNode.get("maxCountOnCell").asInt());
                 animalType.setClassParams(animalNode.get("classParams"));
                 animalTypes.add(animalType);
             } catch (ClassNotFoundException e) {

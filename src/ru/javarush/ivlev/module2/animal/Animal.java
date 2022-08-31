@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 public abstract class Animal extends IslandItem implements Move, Eat, Cloneable {
     private static final double NIGHT_HUNGER_MULTIPLIER = 0.1;
     private static final double MOVE_HUNGER_MULTIPLIER = 0.05;
+    private static final Logger log = Logger.getLogger(Animal.class.getName());
     @Getter
     boolean canEatPlant;
     @Getter
@@ -40,18 +41,13 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
     @Getter
     private Map<String, Double> canEat;
 
-    private static Logger log = Logger.getLogger(Animal.class.getName());
-
     public Animal() {
         super(null);
         isLive = true;
     }
 
     public void setCanEat(Map<String, Double> canEat) {
-        canEatPlant = false;
-        if (canEat.containsKey("plant.Plant")) {
-            canEatPlant = true;
-        }
+        canEatPlant = canEat.containsKey("plant.Plant");
         this.canEat = canEat;
     }
 
@@ -59,7 +55,7 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
     public double smallerWeight(double weight) {
         die();
         if (getWeight() < weight) {
-            Double res = getWeight();
+            double res = getWeight();
             setWeight(0);
             return res;
         }
@@ -217,7 +213,7 @@ public abstract class Animal extends IslandItem implements Move, Eat, Cloneable 
                     newAnimal.remainingDayDistance = 0; // родвшееся животное никуда не ходит, а растет всю ночь, и ждет пока окрепнут ноги.
                     animalForMultiplication.moveHunger();// на размножение тоже требуется энергия
                     moveHunger();
-                  //  log.info("add newAnimal");
+                    //  log.info("add newAnimal");
                     getCell().addAnimalToCell(newAnimal);
                     return newAnimal;
                 } catch (CloneNotSupportedException e) {
