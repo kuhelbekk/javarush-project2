@@ -9,7 +9,13 @@ public class Main {
     static String defaultSettingsFileName = "resources" + File.separator + "islandOne.json";
     public static void main(String[] args) {
         UserDialog userDialog = new UserDialog( System.out, System.in);
-        ParamIslandLoader paramsLoader = new ParamIslandLoader(userDialog.getFileName(defaultSettingsFileName));
+        ParamIslandLoader paramsLoader;
+        try {
+            paramsLoader = new ParamIslandLoader(userDialog.getFileName(defaultSettingsFileName));
+        }catch (RuntimeException e ){
+            userDialog.exitWithError("Load options error! ");
+            return;
+        }
         userDialog.createIsland(paramsLoader.getWidth(), paramsLoader.getHeight()) ;
         Island island = new Island(paramsLoader.getWidth(), paramsLoader.getHeight(), paramsLoader.getAnimalTypes());
         IslandStat islandStat = new IslandStat(island, System.out,userDialog.detailedStatistics());

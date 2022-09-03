@@ -41,7 +41,6 @@ public class ParamIslandLoader {
                 AnimalType animalType = new AnimalType(clazz, animalNode.get("maxCountOnCell").asInt());
                 animalType.setEmoji(animalNode.get("emoji").asText());
                 animalType.setShortName(animalNode.get("shortName").asText());
-
                 animalType.setClassParams(animalNode.get("classParams"));
                 animalTypes.add(animalType);
             } catch (ClassNotFoundException e) {

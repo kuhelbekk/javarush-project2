@@ -48,4 +48,8 @@ public class UserDialog {
         out.println("Use detailed statistics ?");
         return yesNoQuestion();
     }
+
+    public void exitWithError(String s) {
+        out.println(s);
+    }
 }

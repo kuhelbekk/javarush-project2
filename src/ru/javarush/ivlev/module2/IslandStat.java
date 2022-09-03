@@ -62,11 +62,10 @@ public class IslandStat {
     }
 
     private void detailStat() {
+        Map<AnimalType, Integer> liveAnamals = new HashMap<>();
+        Map<AnimalType, Integer> dieAnamals = new HashMap<>();
         for (Cell[] cells : island.getCells()) {
             for (Cell cell : cells) {
-                out.print("cell ["+cell.getPosX()+", "+cell.getPosY()+"]");
-                Map<AnimalType, Integer> liveAnamals = new HashMap<>();
-                Map<AnimalType, Integer> dieAnamals = new HashMap<>();
                 for (Animal animal : cell.getAnimals()) {
                     if (animal.isLive()){
                         Integer count = liveAnamals.get(animal.getType());
@@ -84,18 +83,18 @@ public class IslandStat {
                         }
                     }
                 }
-                for (AnimalType animalType : island.getAnimalTypes()) {
-                    Integer live = liveAnamals.get(animalType);
-                    Integer die = dieAnamals.get(animalType);
-                    if(die!=null || live!=null){
-                        out.print(animalType.getShortName());
-                        if(live!=null) out.print(":"+live);
-                        if(die!=null) out.print(" X"+die);
-                        out.print("  ");
-                    }
-                }
-                out.println(" ");
             }
         }
+        for (AnimalType animalType : island.getAnimalTypes()) {
+            Integer live = liveAnamals.get(animalType);
+            Integer die = dieAnamals.get(animalType);
+            if(die!=null || live!=null){
+                out.print(animalType.getShortName());
+                if(live!=null) out.print(":"+live);
+                if(die!=null) out.print(" die- "+die);
+                out.print("  ");
+            }
+        }
+        out.println(" ");
     }
 }
